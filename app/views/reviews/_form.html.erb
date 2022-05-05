@@ -1,0 +1,10 @@
+<%= form_with model: [ @movie, @movie.reviews.build ] do |form| %>
+    <div class = "form-control">
+        <%= form.label :rating %><br>
+        <%= form.number_field :rating %><br>
+        <%= form.label :review %><br>
+        <%= form.rich_text_area :review %><br>
+        <%= form.submit "Add Review", class: "btn btn-primary mt-1" %>
+    </div>
+<% end %>
+    

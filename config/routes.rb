@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :movies
+  resources :movies do
+    resources :reviews
+  end
   devise_for :users, 
   controllers: { 
     sessions: 'users/sessions',

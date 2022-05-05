@@ -1,0 +1,26 @@
+<div class="review-<%= review.id %> container"
+    style="border: 1px solid black; padding: 1em; margin: 1em;">
+  <%= review.user.email %><br />
+  <span>Posted <%= time_ago_in_words(review.created_at) %></span>
+  <% if current_user == review.user %>
+    <div class="button-group float-end">
+      <%= button_to "Delete", [@movie, review], class:"btn btn-danger", method: :delete %>
+    </div>
+  <% end %>
+  <br />
+  <%= review.rating %><br />
+  <div class="star-rating" data-score= <%= review.rating %> ></div>
+  <%= review.review %>
+</div>
+
+
+
+<script>
+    $('.star-rating').raty({
+        path: '/assets/',
+        readOnly: true,
+        score: function() {
+            return $(this).attr('data-score');
+        }
+    });
+</script>
