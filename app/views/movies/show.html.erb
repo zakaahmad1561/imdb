@@ -19,3 +19,11 @@
 
   <%= button_to "Destroy this movie", @movie, method: :delete %>
 </div>
+
+
+<h2>Reviews</h2>
+<%= render @movie.reviews %>
+
+
+<h2>Add a review:</h2>
+<%= render 'reviews/form' %>
