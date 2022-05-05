@@ -15,6 +15,12 @@
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>
+  <div>
+    <%= form.fields_for :pictures do |picture| %>
+      <%= picture.label :pictures, style: "display: block" %>
+      <%= picture.file_field :pictures, multiple: true %>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= form.label :description %>

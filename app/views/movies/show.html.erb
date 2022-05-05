@@ -1,5 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
+<% if @movie.pictures.any? %>
+    Pictures:
+    <ul>
+      <% @movie.pictures.each do |picture| %>
+        <% picture.pictures.each do |p| %>
+          <%= image_tag(p) %>
+        <% end %>
+      <% end %>
+    </ul>
+<% end %>
+
 <%= render @movie %>
 
 <div>

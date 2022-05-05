@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
   # GET /movies/new
   def new
     @movie = Movie.new
+    @movie.pictures.build
   end
 
   # GET /movies/1/edit
@@ -66,6 +67,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :movie_length, :rating, :description)
+      params.require(:movie).permit(:title, :movie_length, :rating, :description, pictures_attributes: [:id, pictures: [] ])
     end
 end
