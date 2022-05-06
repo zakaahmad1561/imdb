@@ -26,4 +26,8 @@
 
 
 <h2>Add a review:</h2>
-<%= render 'reviews/form' %>
+<%= render 'reviews/form', 
+    post: @movie, 
+    comment: @movie.reviews.build,
+    submit_label: "Reply" %>
+
