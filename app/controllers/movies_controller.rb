@@ -7,6 +7,18 @@ class MoviesController < ApplicationController
     @movies = Movie.all
   end
 
+  def destroy_multiple
+
+    Movie.where(id: params[:collection_ids]).destroy_all
+  
+    respond_to do |format|
+      format.html { redirect_to movies_path }
+      format.json { head :no_content }
+    end
+  
+  end
+  
+
   # GET /movies/1 or /movies/1.json
   def show
   end

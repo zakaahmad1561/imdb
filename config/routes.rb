@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :movies do
+    collection do
+      delete 'destroy_multiple'
+    end
     resources :reviews
   end
   devise_for :users, 
