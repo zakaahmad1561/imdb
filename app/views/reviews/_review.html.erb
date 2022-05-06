@@ -1,16 +1,37 @@
 <div class="review-<%= review.id %> container"
     style="border: 1px solid black; padding: 1em; margin: 1em;">
   <%= review.user.email %><br />
-  <span>Posted <%= time_ago_in_words(review.created_at) %></span>
+  <% if (review.updated_at - review.created_at) > 1 %>
+    <span>Edited <%= time_ago_in_words(review.updated_at) %> ago</span>
+  <% else %>
+    <span>Posted <%= time_ago_in_words(review.created_at) %> ago</span>
+  <% end %>
   <% if current_user == review.user %>
-    <div class="button-group float-end">
+    <div class="btn-group float-end">
+      <%= link_to "Edit", nil, remote: true, class:"btn btn-warning",
+      data: {
+        controller: "comments",
+        action: "comments#toggleForm",
+        comments_form_param: "edit-form-#{review.id}",
+        comments_body_param: "comment-body-#{review.id}",
+      } %>
       <%= button_to "Delete", [@movie, review], class:"btn btn-danger", method: :delete %>
+    </div>
+    <div id="edit-form-<%= review.id%>" class="d-none">
+      <%= render 'reviews/form',
+       post: @movie,
+       comment: review,
+       submit_label: "Update" %>
     </div>
   <% end %>
   <br />
-  <%= review.rating %><br />
+  <div id="review-body-<%= review.id %>">
+    <%= review.rating %>
+  </div>
+  <div id="review-body-<%= review.id %>">
+    <%= review.review %>
+  </div>
   <div class="star-rating" data-score= <%= review.rating %> ></div>
-  <%= review.review %>
 </div>
 
 
