@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_05_05_130334) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_130334) do
     t.string "state"
     t.integer "zip"
     t.string "country"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
@@ -67,13 +70,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_130334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "movie_length"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
   create_table "pictures", force: :cascade do |t|
     t.string "imageable_type"
-    t.integer "imageable_id"
+    t.bigint "imageable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable"
@@ -81,8 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_130334) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
-    t.integer "user_id", null: false
-    t.integer "movie_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
@@ -103,7 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_130334) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
-    t.integer "address_id"
+    t.bigint "address_id"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
