@@ -76,3 +76,4 @@ gem "letter_opener", group: :development
 gem "wicked"
 
 gem 'byebug'
+gem "pundit", "~> 2.2"

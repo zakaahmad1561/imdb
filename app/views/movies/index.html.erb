@@ -7,16 +7,18 @@
     <%= form_for :movies, url: "/movies/destroy_multiple", method: :delete do |f| %> 
       <ul>
         <% @movies.each do |movie| %>
-          <li> <%= movie.title %> <input type="checkbox" name="collection_ids[]" value="<%= movie.id %>" /> </li>
           <%= render movie %>
           <p>
             <%= link_to "Show this movie", movie %>
           </p>
         <% end %>
+        <% if current_user && current_user.role == "admin" %>
+          <%= f.submit "Delete selected" %>
+        <% end %>
       </ul>
-      <%= f.submit "Delete selected" %>
     <% end %>
   <% end %>
 </div>
-
-<%= link_to "New movie", new_movie_path %>
+<% if current_user && current_user.role == "moderater" %>
+  <%= link_to "New movie", new_movie_path %>
+<% end %>

@@ -4,7 +4,12 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    if current_user
+      @movies = policy_scope(Movie).order(created_at: :asc)
+      authorize @movies
+    else
+      @movies = Movie.where(status: "published").order(created_at: :asc)
+    end
   end
 
   def destroy_multiple
@@ -27,6 +32,7 @@ class MoviesController < ApplicationController
   def new
     @movie = Movie.new
     @movie.pictures.build
+    authorize @movie
   end
 
   # GET /movies/1/edit
@@ -50,6 +56,9 @@ class MoviesController < ApplicationController
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
+    if current_user.role != "admin"
+      @movie.status = "draft"
+    end
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to movie_url(@movie), notice: "Movie was successfully updated." }
@@ -79,6 +88,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :movie_length, :rating, :description, pictures_attributes: [:id, pictures: [] ])
+      params.require(:movie).permit(:title, :movie_length, :rating, :description,:status,  pictures_attributes: [:id, pictures: [] ])
     end
 end

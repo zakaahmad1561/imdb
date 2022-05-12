@@ -14,10 +14,13 @@
 <%= render @movie %>
 
 <div>
-  <%= link_to "Edit this movie", edit_movie_path(@movie) %> |
+  <% if policy(@movie).edit? %>
+    <%= link_to "Edit this movie", edit_movie_path(@movie) %> |
+  <% end %>
   <%= link_to "Back to movies", movies_path %>
-
-  <%= button_to "Destroy this movie", @movie, method: :delete %>
+  <% if policy(@movie).destroy? %>
+    <%= button_to "Destroy this movie", @movie, method: :delete %>
+  <% end %>
 </div>
 
 

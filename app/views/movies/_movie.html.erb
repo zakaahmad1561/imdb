@@ -1,7 +1,7 @@
 <div id="<%= dom_id movie %>">
   <p>
     <strong>Title:</strong>
-    <%= movie.title %>
+    <%= movie.title %> <input type="checkbox" name="collection_ids[]" value="<%= movie.id %>" />
   </p>
 
   <%= movie.description %>
