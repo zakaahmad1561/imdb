@@ -4,7 +4,12 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    if current_user
+      @movies = policy_scope(Movie).order(created_at: :asc)
+      authorize @movies
+    else
+      @movies = Movie.where(status: "published").order(created_at: :asc)
+    end
   end
 
   def destroy_multiple

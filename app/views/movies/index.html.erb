@@ -6,34 +6,14 @@
   <% if @movies.present? %>
     <%= form_for :movies, url: "/movies/destroy_multiple", method: :delete do |f| %> 
       <ul>
+        <% @movies.each do |movie| %>
+          <%= render movie %>
+          <p>
+            <%= link_to "Show this movie", movie %>
+          </p>
+        <% end %>
         <% if current_user && current_user.role == "admin" %>
-          <% @movies.each do |movie| %>
-            <% if movie.status == "draft" %>
-              <%= render movie %>
-              <p>
-                <%= link_to "Show this movie", movie %>
-              </p>
-            <% end %>
-          <% end %>
           <%= f.submit "Delete selected" %>
-        <% elsif current_user && current_user.role == "moderater" %>
-          <% @movies.each do |movie| %>
-            <% if movie.user == current_user  && movie.status == "published" %>
-              <%= render movie %>
-              <p>
-                <%= link_to "Show this movie", movie %>
-              </p>
-            <% end %>
-          <% end %>
-        <% else %>
-          <% @movies.each do |movie| %>
-            <% if movie.status == "published"  %>
-              <%= render movie %>
-              <p>
-                <%= link_to "Show this movie", movie %>
-              </p>
-            <% end %>
-          <% end %>
         <% end %>
       </ul>
     <% end %>
