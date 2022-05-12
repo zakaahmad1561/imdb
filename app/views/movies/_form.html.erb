@@ -37,6 +37,13 @@
     <%= form.text_field :rating %>
   </div>
 
+  <% if current_user && current_user.role == "admin" %>
+    <div>
+      <%= form.label :status %>
+      <%= form.select :status, Movie.statuses.keys.to_a %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.submit %>
   </div>

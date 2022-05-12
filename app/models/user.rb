@@ -35,4 +35,9 @@ class User < ApplicationRecord
     # step parameter appears before or we are on the current step
     form_steps.index(step.to_s) <= form_steps.index(form_step.to_s)
   end
+  enum :role, %i(member moderater admin)
+  after_initialize :set_default_role, :if => :new_record?
+  def set_default_role
+    self.role ||= :member
+  end
 end
